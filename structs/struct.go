@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type order  struct {
+type order struct {
 	orderId int
 	amount float32
 	status string
@@ -13,6 +13,11 @@ type order  struct {
 	updatedAt time.Time // Time when the order was last updated
 	users map[string]string
 	
+}
+
+type userOrder struct {
+	userId   int
+	userOrder order // Embedding the order struct
 }
 
 func (o *order) changeStatus(newStatus string) {
@@ -52,4 +57,16 @@ func main() {
 	fmt.Println("My Order :", order1)
 	fmt.Println("My Order :", myOrder)
 
+	userOrder1 := userOrder{
+		userId: 1,
+		userOrder: myOrder, // Embedding the order struct
+	}
+
+	fmt.Println("User Order ID:", userOrder1.userOrder.orderId)
+	fmt.Println("User Order Amount:", userOrder1.userOrder.amount)
+	fmt.Println("User Order Status:", userOrder1.userOrder.status)
+	fmt.Println("User Order Created At:", userOrder1.userOrder.createdAt)
+	fmt.Println("User Order Updated At:", userOrder1.userOrder.updatedAt)
+	fmt.Println("User Order Users:", userOrder1.userOrder.users)
+	fmt.Println("User ID:", userOrder1.userId)
 }
