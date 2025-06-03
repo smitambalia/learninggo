@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func printSlice[T any] (items []T) {
+func printSlice[T comparable] (items []T) {
 	for _, item := range items {
 		fmt.Println(item)
 	}
@@ -17,4 +17,7 @@ func main () {
 
 	intSlice := []int { 1,2,3,4,5 }
 	printSlice(intSlice) // Calling the generic function with a slice of integers
+
+	boolSlice := []bool { true, false, true }
+	printSlice(boolSlice) // Calling the generic function with a slice of booleans
 }
