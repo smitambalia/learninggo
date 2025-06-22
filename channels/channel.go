@@ -11,9 +11,13 @@ func processNumber(numChan chan int) {
 	for num := range numChan {
 		fmt.Println("Processing number:", num) // Process the received number
 		time.Sleep(time.Second) // Simulate some processing time
-
 	}
 	// fmt.Println("Processing number:", <-numChan) // Receive a number from the channel
+}
+
+func sumOfTwo(resultChan chan int, num1 int, num2 int) {
+	sum := num1 + num2 // Calculate the sum of two numbers
+	resultChan <- sum // Send the result to the channel
 }
 func main ( ) {
 	fmt.Println("Channels in Go")
@@ -28,7 +32,7 @@ func main ( ) {
 	messageChan <- 100 // Send a message to the channel
 	waitGroup.Wait() // Wait for the goroutine to finish
 	fmt.Println("Message sent to channel") */
-	intChan := make(chan int) 
+	/* intChan := make(chan int) 
 	go processNumber(intChan)
 
 	var nums []int = []int { 10,20,30,40,50}
@@ -37,8 +41,14 @@ func main ( ) {
 	}
 	
 	fmt.Println("Time Second", time.Second )
-	fmt.Println("Time Second", time.Second * 2)
+	fmt.Println("Time Second", time.Second * 2) */
 
+	result := make(chan int) 
+
+	go sumOfTwo(result, 20, 30) // Start a goroutine to calculate the sum of two numbers
+	sum := <-result
+
+	fmt.Println("Sum of two numbers:", sum) // Receive the result from the channel
 	/* messageChan <- "Hello, Channel!" // Send a message to the channel
 	var message string = <- messageChan
 
